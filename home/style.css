@@ -1,0 +1,87 @@
+/* Styles de base */
+body {
+    font-family: Copperplate Gothic Light, fantasy;
+    background-color: rgb(145, 127, 27);
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Tete de page  */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+
+h1 {
+    color: #614e1a;
+    padding: 20px 0;
+    background-color: rgb(145, 127, 27);
+    margin: 0;
+}
+
+/* Style pour la barre de navigation */
+nav {
+    display: flex;
+    gap: 10px;
+    background-color: rgb(145, 127, 27);
+    padding: 20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 7px;
+    transition: background-color 0.3s color 3s;
+}
+
+nav a:hover {
+    background-color: rgb(196, 190, 190);
+    color: rgb(44, 44, 44);
+}
+
+
+
+.main-content {
+    flex: 1;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 100px;
+}
+
+/* PIED DE PAGE  */
+footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    flex-shrink: 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    nav {
+        font-size: 30px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-content {
+        flex: none;
+        width: 70%;
+        margin: 100px;
+
+    }
+}

@@ -1,0 +1,168 @@
+/* Styles de base */
+body {
+    font-family: Copperplate Gothic Light, fantasy;
+    background-color: rgb(145, 127, 27);
+    margin: 0;
+    padding: 0;
+}
+
+/* Tete de page  */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+
+/* Style pour le titre principal */
+h1 {
+    color: #614e1a;
+    padding: 20px 0;
+    background-color: rgb(145, 127, 27);
+    margin: 0;
+}
+
+
+/* Style pour la barre de navigation */
+nav {
+    display: flex;
+    gap: 10px;
+    background-color: rgb(145, 127, 27);
+    padding: 20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 7px;
+    transition: background-color 0.3s color 3s;
+}
+
+nav a:hover {
+    background-color: rgb(196, 190, 190);
+    color: rgb(44, 44, 44);
+}
+
+
+#t2{
+    margin-left:10px; 
+}
+
+/* Conteneur de filtrage */
+#filter-container {
+    margin: 20px 0;
+}
+
+#filter-container label,
+#filter-container select {
+    font-size: 16px;
+    color: black;
+
+}
+
+#filter-container select {
+    background-color: #524215;
+    color: rgba(250, 250, 250, 0.719);
+}
+
+/* Conteneur des films */
+#movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style des cartes de films */
+.movie-info {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px;
+    width: 300px;
+    margin: 10px;
+    overflow: hidden;
+    transition: transform 0.3s box-shadow 0.3s;
+}
+
+.movie-info:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.705);
+
+}
+
+.movie-info img {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.movie-info h2 {
+    font-size: 20px;
+    margin: 12px;
+    padding: 5px;
+}
+
+.movie-info p {
+    display: flex;
+    font-size: 15px;
+    margin: 10px;
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* PIED DE PAGE  */
+footer {
+    display: flex;
+    justify-content: end;
+    margin: 10px 28px;
+}
+
+/* Styles responsivités */
+@media (max-width: 768px) {
+
+    /* Entête page  */
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+    }
+
+    /* Barre navigation */
+    nav {
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    nav a {
+        display: flex;
+        padding: 10px 15px;
+        margin: 5px 0;
+    }
+
+    /* Filtre */
+    #filter-container {
+        margin: 20px;
+    }
+
+    /* Carte film  */
+    .movie-info {
+        width: 80%;
+    }
+
+    #movies-container {
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    /* PIED DE PAGE  */
+    footer {
+        justify-content: center;
+    }
+
+}

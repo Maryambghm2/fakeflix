@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="upcoming.css">
+    <title>FakeFlix</title>
+</head>
+
+<body>
+    <header>
+
+        <!-- SITE NAME's -->
+        <h1>FakeFlix</h1>
+
+        <!-- BARRE NAVIGATEUR AUTRES PAGES  -->
+        <nav>
+            <a href="http://127.0.0.1:5500/home/index.html">HomePage</a>
+            <a href="http://127.0.0.1:5500/top_rated/top_rated.html">Top-rated Movies</a>
+            <a href="http://127.0.0.1:5500/popular/popular.html">Popular Movies</a>
+            <a href="http://127.0.0.1:5500/upcoming/upcoming.html">Upcoming Movies </a>
+        </nav>
+    </header>
+
+    <h1 id="t2">Upcoming Movies</h1>
+
+    <!-- FILTRAGE -->
+    <div id="filter-container">
+        <label for="filter">Trier par:</label>
+        <select id="filter">
+            <option value="none">Aucun</option>
+            <option value="name-asc">Par nom (A-Z)</option>
+            <option value="name-desc">Par nom (Z-A)</option>
+            <option value="date-asc">Du moins récent au plus récent</option>
+            <option value="date-desc">Du plus récent au moins récent</option>
+        </select>
+    </div>
+
+    <div id="movies-container"> </div>
+
+    <!-- PIED DE PAGE  -->
+    <footer>
+        <p>&copy; 2024 FakeFlix. All rights reserved.</p>
+    </footer>
+
+    <script src="upcoming.js"></script>
+</body>
+
+</html>
