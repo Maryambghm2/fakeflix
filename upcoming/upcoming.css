@@ -70,6 +70,7 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
+    justify-content: center;
     gap: 20px;
     padding: 20px;
 }

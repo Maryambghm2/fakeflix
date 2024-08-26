@@ -1,4 +1,3 @@
-// AFFICHER CONTENU QUAND HTML CHARGEE COMPLETEMENT 
 document.addEventListener("DOMContentLoaded", function () {
     const options = {
         method: 'GET',
@@ -8,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Effectuer  requête fetch pour obtenir les films les mieux notés
-    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+    // Effectuer une requête fetch pour obtenir les films les mieux notés
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=fr-US&page=1', options)
         .then(response => response.json())
         .then(data => {
 
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const moviesContainer = document.getElementById('movies-container');
                 const filterSelect = document.getElementById('filter');
 
-
                 // Stocker les films récupérés de l'API
                 let movies = data.results;
 
@@ -33,8 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Vider le conteneur avant de le remplir avec les films triés
                     moviesContainer.innerHTML = '';
 
-
-                    // Parcourir chaque film  et créer les éléments HTML correspondants
+                    // Parcourir chaque film et créer les éléments HTML correspondants
                     movies.forEach(movie => {
 
                         // Créer un conteneur pour chaque film
@@ -54,17 +51,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         const overview = document.createElement('p');
                         overview.textContent = movie.overview;
 
-                        // LANGAGE
+                        // LANGUE ORIGINALE
                         const originalLanguage = document.createElement('p');
-                        originalLanguage.innerHTML = `<strong>Original Language: </strong>${movie.original_language}`;
+                        originalLanguage.innerHTML = `<strong>Langue d'origine : </strong> ${movie.original_language}`;
 
-                        // DATE 
+                        // DATE DE SORTIE
                         const releaseDate = document.createElement('p');
-                        releaseDate.innerHTML = `<strong>Release Date: </strong>${movie.release_date}`;
+                        releaseDate.innerHTML = `<strong>Date de sortie : </strong>${movie.release_date}`;
 
-                        // VOTE
+                        // MOYENNE DES VOTES
                         const voteAverage = document.createElement('p');
-                        voteAverage.innerHTML = `<strong>Vote average: </strong>${movie.vote_average}`;
+                        voteAverage.innerHTML = `<strong>Note moyenne : </strong>${movie.vote_average.toFixed(1)} /10`;
 
                         // Ajouter les éléments au conteneur du film
                         movieDiv.appendChild(title);
@@ -100,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Appeler la fonction pour afficher les films triés
                     renderMovies(movies);
                 };
+
                 // Ajouter un écouteur d'événements pour détecter les changements dans le sélecteur de filtre
                 filterSelect.addEventListener('change', (event) => {
 

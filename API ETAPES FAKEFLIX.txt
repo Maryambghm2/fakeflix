@@ -1,0 +1,326 @@
+API ETAPES FAKEFLIX
+
+Propriétés utilisées 
+ textContent pour le titre car il s'agit simplement de texte brut sans balises HTML.
+
+ innerHTML pour la date de sortie et d'autres informations structurées afin de pouvoir inclure des balises HTML pour formater et styliser le texte comme <strong> </strong>.
+
+
+document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { ... });: C'est un événement JavaScript qui attend que tout le HTML de la page soit chargé et analysé avant d'exécuter le code à l'intérieur de la fonction.
+
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZmI3ZDYxYzUyODNmZmMyYTgzYTU4NGMzNWY1NTk5OCIsIm5iZiI6MTcyMTMxMjc3Mi4wNjg5MDksInN1YiI6IjY2OTc3ODUxMDE3NzNmMTEzNTY4MTc4ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gdJ8F0N4ei7sqy4sqEFP0d3twCbtfMvrd5jHpxMcEgE'
+        }
+    };
+: C'est un objet JavaScript qui contient les options pour la requête HTTP que vous allez faire avec fetch(). Vous spécifiez ici que vous allez faire une requête GET et que vous incluez des en-têtes (headers) avec un jeton d'autorisation (Bearer token) pour authentifier votre demande.
+
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        .then(response => response.json())
+        .then(data => {
+
+
+fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options): C'est la fonction fetch() qui envoie une requête HTTP GET à l'API The Movie Database pour obtenir une liste de films populaires.
+Vous utilisez l'URL de l'API avec des paramètres comme la langue et la page de résultats.
+
+.then(response => response.json()): Cette ligne indique ce qu'il faut faire une fois que la réponse de l'API est reçue. Ici, vous convertissez la réponse en JSON en appelant la méthode .json().
+
+.then(data => { ... }): Une fois que les données JSON sont prêtes, cette fonction est appelée avec les données de réponse converties en JSON.
+
+
+ if (data.results && Array.isArray(data.results)) {
+if (data.results && Array.isArray(data.results)) { ... }: Vous vérifiez si les données retournées de l'API contiennent bien une propriété results qui est un tableau (Array.isArray(data.results)). Cela garantit que vous avez des résultats valides à traiter.
+
+  const moviesContainer = document.getElementById('movies-container');
+   const filterSelect = document.getElementById('filter');
+    let movies = data.results;
+
+
+const moviesContainer = document.getElementById('movies-container');: Vous récupérez une référence à l'élément HTML avec l'ID 'movies-container', qui est le conteneur où vous afficherez les films.
+
+const filterSelect = document.getElementById('filter');: Vous récupérez une référence à l'élément <select> HTML avec l'ID 'filter', qui est utilisé pour filtrer les films.
+
+let movies = data.results;: Vous stockez les résultats des films de l'API dans la variable movies pour pouvoir les manipuler et les afficher.
+
+
+  const renderMovies = (movies) => {
+
+const renderMovies = (movies) => { ... }: C'est une fonction fléchée nommée 'renderMovies' qui prend comme paramètre un tableau de films et qui est responsable de créer et d'afficher les éléments HTML correspondants pour chaque film.
+
+
+  moviesContainer.innerHTML = ''; : Vous videz le contenu existant du conteneur de films pour vous assurer qu'il est prêt à être rempli avec les nouveaux films triés.
+
+                    movies.forEach(movie => { C'est une boucle qui itère sur chaque film dans le tableau movies et exécute le bloc de code à l'intérieur pour chaque film.
+javascript
+
+
+                        const movieDiv = document.createElement('div');
+                        movieDiv.classList.add('movie-info');
+
+
+const movieDiv = document.createElement('div');: Vous créez un nouvel élément <div> dans le DOM pour chaque film.
+
+movieDiv.classList.add('movie-info');: Vous ajoutez une classe CSS 'movie-info' à ce div pour le styler avec des règles CSS prédéfinies.
+
+
+
+                        const title = document.createElement('h2');
+                        title.textContent = movie.title;
+
+const title = document.createElement('h2');: Vous créez un élément <h2> pour le titre du film.
+
+title.textContent = movie.title;: Vous assignez le titre du film à la propriété textContent de l'élément <h2> que vous venez de créer.
+
+                        const poster = document.createElement('img');
+                        poster.src = `https://image.tmdb.org/t/p/w185${movie.poster_path}`;
+                        poster.alt = `Poster of ${movie.title}`;
+
+const poster = document.createElement('img');: Vous créez un élément <img> pour l'affiche du film.
+
+poster.src = https://image.tmdb.org/t/p/w185${movie.poster_path}`;`: Vous définissez l'URL de l'image à partir de l'API The Movie Database pour l'affiche du film.
+
+poster.alt = Poster of ${movie.title};: Vous définissez un texte alternatif pour l'image, basé sur le titre du film, pour l'accessibilité.
+
+
+
+                        const overview = document.createElement('p');
+                        overview.textContent = movie.overview;
+
+const overview = document.createElement('p');: Vous créez un élément <p> pour le résumé du film.
+
+overview.textContent = movie.overview;: Vous assignez le résumé du film à la propriété textContent de l'élément <p> que vous venez de créer.
+
+
+                        const originalLanguage = document.createElement('p');
+                        originalLanguage.innerHTML = `<strong>Original Language: </strong>${movie.original_language}`;
+
+const originalLanguage = document.createElement('p');: Vous créez un élément <p> pour afficher la langue originale du film.
+
+originalLanguage.innerHTML = <strong>Original Language: </strong>${movie.original_language};: Vous définissez le contenu HTML de l'élément <p> pour inclure le texte "Original Language:" en gras suivi de la langue originale du film.
+
+
+                        const releaseDate = document.createElement('p');
+                        releaseDate.innerHTML = `<strong>Release Date: </strong>${movie.release_date}`;
+
+
+const releaseDate = document.createElement('p');: Vous créez un élément <p> pour afficher la date de sortie du film.
+
+releaseDate.innerHTML = <strong>Release Date: </strong>${movie.release_date};: Vous définissez le contenu HTML de l'élément <p> pour inclure le texte "Release Date:" en gras suivi de la date de sortie du film.
+
+
+
+                        const voteAverage = document.createElement('p');
+                        voteAverage.innerHTML = `<strong>Vote average: </strong>${movie.vote_average}`;
+
+const voteAverage = document.createElement('p');: Vous créez un élément <p> pour afficher la note moyenne du film.
+
+voteAverage.innerHTML = <strong>Vote average: </strong>${movie.vote_average};: Vous définissez le contenu HTML de l'élément <p> pour inclure le texte "Vote average:" en gras suivi de la note moyenne du film.
+
+
+                        movieDiv.appendChild(title);
+                        movieDiv.appendChild(poster);
+                        movieDiv.appendChild(overview);
+                        movieDiv.appendChild(originalLanguage);
+                        movieDiv.appendChild(releaseDate);
+                        movieDiv.appendChild(voteAverage);
+
+movieDiv.appendChild(...);: Vous ajoutez chaque élément créé (title, poster, overview, originalLanguage, releaseDate, voteAverage) comme enfant de movieDiv, qui est le conteneur de chaque film.
+
+    moviesContainer.appendChild(movieDiv);
+
+moviesContainer.appendChild(movieDiv);: Une fois que tous les éléments du film sont ajoutés à movieDiv, vous ajoutez ce dernier comme enfant de moviesContainer, qui est le conteneur principal pour tous les films.
+
+});: Fin de la boucle forEach qui itère sur chaque film.
+
+
+
+TRIE :
+                };
+
+                const sortMovies = (criteria) => {
+                    switch (criteria) {
+                        case 'name-asc':
+                            movies.sort((a, b) => a.title.localeCompare(b.title));
+                            break;
+                        case 'name-desc':
+                            movies.sort((a, b) => b.title.localeCompare(a.title));
+                            break;
+                        case 'date-asc':
+                            movies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+                            break;
+                        case 'date-desc':
+                            movies.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+                            break;
+                        default:
+                            break;
+                    }
+                    renderMovies(movies);
+                };
+
+
+const sortMovies = (criteria) => { ... }: C'est une fonction fléchée nommée sortMovies qui prend comme paramètre criteria (le critère de tri sélectionné) et qui trie les films en fonction de ce critère.
+
+switch (criteria) { ... }: Une structure de contrôle switch qui détermine comment trier les films en fonction de la valeur de criteria.
+
+movies.sort((a, b) => ...);: Vous utilisez la méthode sort() pour trier le tableau movies en fonction du critère sélectionné.
+
+renderMovies(movies);: Une fois que les films sont triés, vous appelez la fonction renderMovies pour afficher les films triés à l'écran.
+
+
+                filterSelect.addEventListener('change', (event) => {
+                    sortMovies(event.target.value);
+                });
+
+filterSelect.addEventListener('change', (event) => { ... });: Vous ajoutez un écouteur d'événements qui écoute les changements dans l'élément <select> avec l'ID 'filter'. À chaque fois que l'utilisateur sélectionne une nouvelle option de tri, la fonction fléchée est appelée avec event contenant les détails de l'événement.
+
+sortMovies(event.target.value);: Vous appelez la fonction sortMovies avec la valeur de la nouvelle option sélectionnée dans le sélecteur de tri.
+
+
+                renderMovies(movies);
+
+renderMovies(movies);: Enfin, vous appelez renderMovies pour afficher les films initiaux récupérés de l'API avant que l'utilisateur ne commence à trier.
+
+            } else {
+                console.error("Les données de l'API ne contiennent pas de 'results' ou 'results' n'est pas un tableau.");
+            }
+        })
+        .catch(error => {
+            console.error("Erreur lors de la récupération des données de l'API :", error);
+        });
+});
+
+});: Fin de la fonction qui écoute l'événement DOMContentLoaded.
+.catch(error => { ... });: Gestion des erreurs pour la requête fetch. Si une erreur se produit pendant la récupération des données de l'API, cette fonction est appelée pour afficher un message d'erreur dans la console.
+
+Explication Globale
+Votre script JavaScript commence par attendre que le DOM soit complètement chargé. Ensuite, il envoie une requête GET à l'API The Movie Database pour récupérer une liste de films populaires. Une fois les données récupérées, il vérifie si les résultats sont valides, les trie selon les critères sélectionnés par l'utilisateur, et enfin les affiche dans le navigateur.
+
+Chaque étape du processus est soigneusement gérée pour assurer que les données sont récupérées, triées et affichées de manière efficace et conforme aux interactions de l'utilisateur avec le sélecteur de tri.
+-----------------------------------------------------------------------------
+
+
+// AFFICHER CONTENU QUAND HTML CHARGEE COMPLETEMENT 
+document.addEventListener("DOMContentLoaded", function () {
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZmI3ZDYxYzUyODNmZmMyYTgzYTU4NGMzNWY1NTk5OCIsIm5iZiI6MTcyMTMxMjc3Mi4wNjg5MDksInN1YiI6IjY2OTc3ODUxMDE3NzNmMTEzNTY4MTc4ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gdJ8F0N4ei7sqy4sqEFP0d3twCbtfMvrd5jHpxMcEgE'
+        }
+    };
+
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        .then(response => response.json())
+        .then(data => {
+            // Affiche les données de l'API dans la console
+            console.log("Données de l'API :", data);
+
+            // Vérifie si les résultats de l'API contiennent un tableau de films
+            if (data.results && Array.isArray(data.results)) {
+                // Obtenir les références aux éléments HTML pour le conteneur des films et le sélecteur de filtre
+
+                const moviesContainer = document.getElementById('movies-container');
+                const filterSelect = document.getElementById('filter');
+
+                // Stocker les films récupérés de l'API
+                let movies = data.results;
+
+                // Fonction pour afficher les films dans le conteneur
+                const renderMovies = (movies) => {
+
+                    // Vider le conteneur avant de le remplir avec les films triés
+                    moviesContainer.innerHTML = '';
+
+
+                    // Parcourir chaque film dans les résultats
+                    movies.forEach(movie => {
+
+                        // Créer un conteneur pour chaque film
+                        const movieDiv = document.createElement('div');
+                        movieDiv.classList.add('movie-info');
+
+                        // Créer et ajouter les éléments pour chaque film
+                        const title = document.createElement('h2');
+                        title.textContent = movie.title;
+
+                        // IMAGE
+                        const poster = document.createElement('img');
+                        poster.src = `https://image.tmdb.org/t/p/w185${movie.poster_path}`;
+                        poster.alt = `Poster of ${movie.title}`;
+
+                        // DESCRIPTION 
+                        const overview = document.createElement('p');
+                        overview.textContent = movie.overview;
+
+                        // LANGAGE
+                        const originalLanguage = document.createElement('p');
+                        originalLanguage.innerHTML = `<strong>Original Language: </strong>${movie.original_language}`;
+
+                        // DATE 
+                        const releaseDate = document.createElement('p');
+                        releaseDate.innerHTML = `<strong>Release Date: </strong>${movie.release_date}`;
+
+                        // VOTE
+                        const voteAverage = document.createElement('p');
+                        voteAverage.innerHTML = `<strong>Vote average: </strong>${movie.vote_average}`;
+
+                        // Ajouter les éléments au conteneur du film
+                        movieDiv.appendChild(title);
+                        movieDiv.appendChild(poster);
+                        movieDiv.appendChild(overview);
+                        movieDiv.appendChild(originalLanguage);
+                        movieDiv.appendChild(releaseDate);
+                        movieDiv.appendChild(voteAverage);
+
+                        // Ajouter le conteneur du film au conteneur principal
+                        moviesContainer.appendChild(movieDiv);
+                    });
+
+                };
+
+                // Fonction pour trier les films en fonction du critère sélectionné
+                const sortMovies = (criteria) => {
+                    switch (criteria) {
+                        case 'name-asc':
+                            movies.sort((a, b) => a.title.localeCompare(b.title));
+                            break;
+                        case 'name-desc':
+                            movies.sort((a, b) => b.title.localeCompare(a.title));
+                            break;
+                        case 'date-asc':
+                            movies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+                            break;
+                        case 'date-desc':
+                            movies.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+                            break;
+                        default:
+                            break;
+                    }
+                    // Appeler la fonction pour afficher les films triés
+                    renderMovies(movies);
+                };
+                // Ajouter un écouteur d'événements pour détecter les changements dans le sélecteur de filtre
+                filterSelect.addEventListener('change', (event) => {
+
+                    // Trier les films en fonction de la valeur sélectionnée
+                    sortMovies(event.target.value);
+                });
+
+                // Afficher les films récupérés de l'API pour la première fois
+                renderMovies(movies);
+
+            } else {
+
+                // Afficher une erreur si les résultats de l'API ne contiennent pas de tableau de films
+                console.error("Les données de l'API ne contiennent pas de 'results' ou 'results' n'est pas un tableau.");
+            }
+        })
+        .catch(error => {
+            // Afficher une erreur en cas d'échec de la requête fetch
+            console.error("Erreur lors de la récupération des données de l'API :", error);
+        });
+});
+

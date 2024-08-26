@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', options)
+    fetch('https://api.themoviedb.org/3/movie/upcoming?language=fr-US&page=1', options)
         .then(response => response.json())
         .then(data => {
 
@@ -53,18 +53,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         // DESCRIPTION 
                         const overview = document.createElement('p');
                         overview.textContent = movie.overview;
-
-                        // LANGAGE
+                        // LANGUE ORIGINALE
                         const originalLanguage = document.createElement('p');
-                        originalLanguage.innerHTML = `<strong>Original Language: </strong>${movie.original_language}`;
+                        originalLanguage.innerHTML = `<strong>Langue d'origine : </strong> ${movie.original_language}`;
 
-                        // DATE 
+                        // DATE DE SORTIE
                         const releaseDate = document.createElement('p');
-                        releaseDate.innerHTML = `<strong>Release Date: </strong>${movie.release_date}`;
+                        releaseDate.innerHTML = `<strong>Date de sortie : </strong>${movie.release_date}`;
 
-                        // VOTE
-                        const popularity = document.createElement('p');
-                        popularity.innerHTML = `<strong>Popularity: </strong>${movie.popularity}`;
 
                         // Ajouter les éléments au conteneur du film
                         movieDiv.appendChild(title);
@@ -72,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         movieDiv.appendChild(overview);
                         movieDiv.appendChild(originalLanguage);
                         movieDiv.appendChild(releaseDate);
-                        movieDiv.appendChild(popularity);
 
                         // Ajouter le conteneur du film au conteneur principal
                         moviesContainer.appendChild(movieDiv);

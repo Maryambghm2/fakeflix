@@ -1,5 +1,6 @@
 /* Styles de base */
 body {
+    /* font-family: didot; */
     font-family: Copperplate Gothic Light, fantasy;
     background-color: rgb(145, 127, 27);
     margin: 0;
@@ -71,6 +72,7 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
+    justify-content: center;
     gap: 20px;
     padding: 20px;
 }

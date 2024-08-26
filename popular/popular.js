@@ -8,30 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+    fetch('https://api.themoviedb.org/3/movie/popular?language=fr-US&page=1', options)
         .then(response => response.json())
         .then(data => {
-            // Affiche les données de l'API dans la console
-            console.log("Données de l'API :", data);
-
-            // Vérifie si les résultats de l'API contiennent un tableau de films
             if (data.results && Array.isArray(data.results)) {
-                // Obtenir les références aux éléments HTML pour le conteneur des films et le sélecteur de filtre
-
                 const moviesContainer = document.getElementById('movies-container');
                 const filterSelect = document.getElementById('filter');
-
-                // Stocker les films récupérés de l'API
                 let movies = data.results;
 
-                // Fonction pour afficher les films dans le conteneur
                 const renderMovies = (movies) => {
-
                     // Vider le conteneur avant de le remplir avec les films triés
                     moviesContainer.innerHTML = '';
 
-
-                    // Parcourir chaque film dans les résultats
+                    // Parcourir chaque film et créer les éléments HTML correspondants
                     movies.forEach(movie => {
 
                         // Créer un conteneur pour chaque film
@@ -51,19 +40,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         const overview = document.createElement('p');
                         overview.textContent = movie.overview;
 
-                        // LANGAGE
+                        // LANGUE ORIGINALE
                         const originalLanguage = document.createElement('p');
-                        originalLanguage.innerHTML = `<strong>Original Language: </strong>${movie.original_language}`;
+                        originalLanguage.innerHTML = `<strong>Langue d'origine : </strong> ${movie.original_language}`;
 
-                        // DATE 
+                        // DATE DE SORTIE
                         const releaseDate = document.createElement('p');
-                        releaseDate.innerHTML = `<strong>Release Date: </strong>${movie.release_date}`;
+                        releaseDate.innerHTML = `<strong>Date de sortie : </strong>${movie.release_date}`;
 
-                        // VOTE
+                        // MOYENNE DES VOTES
                         const voteAverage = document.createElement('p');
-                        voteAverage.innerHTML = `<strong>Vote average: </strong>${movie.vote_average}`;
+                        voteAverage.innerHTML = `<strong>Note moyenne : </strong>${movie.vote_average.toFixed(1)} /10`;
 
-                        // Ajouter les éléments au conteneur du film
                         movieDiv.appendChild(title);
                         movieDiv.appendChild(poster);
                         movieDiv.appendChild(overview);
@@ -71,13 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         movieDiv.appendChild(releaseDate);
                         movieDiv.appendChild(voteAverage);
 
-                        // Ajouter le conteneur du film au conteneur principal
                         moviesContainer.appendChild(movieDiv);
                     });
-
                 };
-
-                // Fonction pour trier les films en fonction du critère sélectionné
+                // TRIE
                 const sortMovies = (criteria) => {
                     switch (criteria) {
                         case 'name-asc':
@@ -95,27 +80,21 @@ document.addEventListener("DOMContentLoaded", function () {
                         default:
                             break;
                     }
-                    // Appeler la fonction pour afficher les films triés
                     renderMovies(movies);
                 };
-                // Ajouter un écouteur d'événements pour détecter les changements dans le sélecteur de filtre
-                filterSelect.addEventListener('change', (event) => {
 
-                    // Trier les films en fonction de la valeur sélectionnée
+                filterSelect.addEventListener('change', (event) => {
                     sortMovies(event.target.value);
                 });
 
-                // Afficher les films récupérés de l'API pour la première fois
                 renderMovies(movies);
 
             } else {
-
-                // Afficher une erreur si les résultats de l'API ne contiennent pas de tableau de films
                 console.error("Les données de l'API ne contiennent pas de 'results' ou 'results' n'est pas un tableau.");
+
             }
         })
         .catch(error => {
-            // Afficher une erreur en cas d'échec de la requête fetch
-            console.error("Erreur lors de la récupération des données de l'API :", error);
+            console.error('Erreur lors de la récupération des données de l' / 'API:', error);
         });
 });
